@@ -1,0 +1,16 @@
+remote_file '/usr/share/elasticsearch-5.3.1.rpm' do
+  source 'https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.3.1.rpm'
+  action :create
+end
+
+package 'elasticsearch' do
+  allow_downgrade true
+  source '/usr/share/elasticsearch-5.3.1.rpm'
+  action :install
+end
+
+service 'elasticsearch' do
+ supports :status => true, :restart => true, :reload => true
+ init_command '/etc/init.d/elasticsearch :start'
+ action [:enable, :start]
+end

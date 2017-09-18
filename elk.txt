@@ -1,0 +1,11 @@
+remote_file '/usr/share/kibana-5.3.1.rpm' do
+  source 'https://artifacts.elastic.co/downloads/kibana/kibana-5.3.1-x86_64.rpm'
+  action :create
+end
+package 'kibana' do
+  source '/usr/share/kibana-5.3.1.rpm'
+  action :install
+end
+service "kibana" do
+  action [:enable, :start]
+end

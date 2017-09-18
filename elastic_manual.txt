@@ -1,0 +1,26 @@
+curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.3.1.tar.gz
+tar -xvf elasticsearch-5.3.1.tar.gz
+increase momery map count :  sysctl -w vm.max_map_count=262144
+service elasticsearch start
+check the service : curl http://172.31.44.42:9200
+
+
+input {
+  stdin {
+  file {
+    type => syslog
+    path => */var/log/**
+    start_position => "beginning"
+  }
+}
+output {
+  stdout {
+    codec => rubydebug
+  }
+  elastcisearch {
+     host => localhost
+ }
+}
+systemctl -w vm.max_map_count=262144
+ 
+    

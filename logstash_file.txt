@@ -1,0 +1,16 @@
+input {
+  stdin {}
+  file {
+    type => syslogput
+    path => "/var/log/*"
+    start_position => "beginning"
+  }
+}
+output {
+  stdout {
+    codec =>rubydebug
+ }
+ elasticsearch {
+   host => ["http://ip-172-31-43-217.us-west-2.compute.internal:9203"] 
+ }
+}
